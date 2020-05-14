@@ -1,12 +1,12 @@
 export function getMetaValue(name) {
   const element = findElement(document.head, `meta[name="${name}"]`)
   if (element) {
-    return element.getAttribute("content")
+    return element.getAttribute('content')
   }
 }
 
 export function findElements(root, selector) {
-  if (typeof root == "string") {
+  if (typeof root == 'string') {
     selector = root
     root = document
   }
@@ -15,7 +15,7 @@ export function findElements(root, selector) {
 }
 
 export function findElement(root, selector) {
-  if (typeof root == "string") {
+  if (typeof root == 'string') {
     selector = root
     root = document
   }
@@ -25,7 +25,7 @@ export function findElement(root, selector) {
 export function dispatchEvent(element, type, eventInit = {}) {
   const { disabled } = element
   const { bubbles, cancelable, detail } = eventInit
-  const event = document.createEvent("Event")
+  const event = document.createEvent('Event')
 
   event.initEvent(type, bubbles || true, cancelable || true)
   event.detail = detail || {}
@@ -51,10 +51,10 @@ export function toArray(value) {
 }
 
 export function onDocumentReady(callback) {
-  if (document.readyState !== "loading") {
-      callback()
+  if (document.readyState !== 'loading') {
+    callback()
   } else {
-      document.addEventListener("DOMContentLoaded", callback)
+    document.addEventListener('DOMContentLoaded', callback)
   }
 }
 
@@ -69,42 +69,43 @@ export function insertAfter(el, referenceNode) {
 }
 
 export function getAuthenticityToken() {
-  return getMetaValue("csrf-token")
+  return getMetaValue('csrf-token')
 }
 
 export function rFetch(resource, _options = {}) {
   const options = Object.assign({}, _options)
-  
+
   setupHeaders()
   setupContentType()
   setupAccept()
-  setupCredentials()  
+  setupCredentials()
   return fetch(resource, options).then(checkStatus).then(parseResponse)
-  
+
   function setupHeaders() {
     const headers = Object.assign({}, options.headers)
-    headers["X-CSRF-Token"] = getAuthenticityToken()  
-    headers["X-Requested-With"] = "XMLHttpRequest"
+    headers['X-CSRF-Token'] = getAuthenticityToken()
+    headers['X-Requested-With'] = 'XMLHttpRequest'
     options.headers = headers
   }
-  
-  function setupContentType() {  
-    if (options.contentType) options.headers["Content-Type"] = options.contentType
+
+  function setupContentType() {
+    if (options.contentType)
+      options.headers['Content-Type'] = options.contentType
   }
-  
+
   function setupAccept() {
-    if (options.as == "json") {
-      options.headers["Accept"] = "application/json"
-    } 
-    if (options.as == "xhr") {
-      options.headers["Accept"] = "text/javascript"
+    if (options.as == 'json') {
+      options.headers['Accept'] = 'application/json'
+    }
+    if (options.as == 'xhr') {
+      options.headers['Accept'] = 'text/javascript'
     }
   }
-  
+
   function setupCredentials() {
-    options.credentials = options.credentials || "same-origin"
+    options.credentials = options.credentials || 'same-origin'
   }
-  
+
   function checkStatus(response) {
     if (response.status >= 200 && response.status < 300) {
       return response
@@ -114,15 +115,15 @@ export function rFetch(resource, _options = {}) {
       throw error
     }
   }
-  
+
   function parseResponse(response) {
     switch (options.as) {
-      case "blob":
-        return response.blob();
-      case "json":
-        return response.json();
+      case 'blob':
+        return response.blob()
+      case 'json':
+        return response.json()
       default:
         return response.text()
     }
-  }  
+  }
 }

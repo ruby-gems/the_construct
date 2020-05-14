@@ -1,0 +1,7 @@
+# frozen_string_literal: true
+
+set :stage, :production
+
+server '<%= production_hostname %>',
+       user: 'deployer',
+       roles: %w[app db web]

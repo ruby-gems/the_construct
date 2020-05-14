@@ -11,7 +11,8 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'mobile', media: 'all', 'data-turbolinks-track': 'reload' if platform.mobile_app? %>
 
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'main', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'main', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>

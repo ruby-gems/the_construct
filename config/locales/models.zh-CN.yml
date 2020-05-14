@@ -1,0 +1,17 @@
+default: &default
+  id: 序号
+  name: 名称
+  active: 可用
+  position: 排序
+  created_at: 创建时间
+  updated_at: 更新时间
+  deleted_at: 删除时间
+
+zh-CN:
+  activerecord:
+    models:
+      admin_user: 管理员
+    attributes:
+      admin_user:
+        <<: *default
+        name: 姓名

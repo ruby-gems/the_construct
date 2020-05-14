@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Pagy::Frontend
+
   def page_title
     content_for(:page_title) || Rails.application.class.to_s.split('::').first
   end

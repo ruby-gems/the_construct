@@ -10,7 +10,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     @search = <%= class_name %>.reverse_chronologically.ransack(params[:q])
 
     respond_to do |format|
-      format.any(:html, :json) { @<%= plural_table_name %> = set_page_and_extract_portion_from @search.result }
+      format.any(:html, :json) { @pagy ,@<%= plural_table_name %> = pagy @search.result }
       format.csv { render csv: @search.result }
     end
   end
@@ -30,7 +30,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     @<%= singular_table_name %> = <%= orm_class.build(class_name, "#{singular_table_name}_params") %>
     respond_to do |format|
       if @<%= singular_table_name %>.save
-        format.html { redirect_to <%= redirect_resource_name %>, notice: <%= "'#{human_name} was successfully created.'" %> }
+        format.html { redirect_to <%= redirect_resource_name %>, notice: <%= "'#{I18n.t("custom_template.flash.created")}'" %> }
         format.json { render :show, status: :created }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   def update
     respond_to do |format|
       if @<%= singular_table_name %>.update(<%= "#{singular_table_name}_params" %>)
-        format.html { redirect_to <%= redirect_resource_name %>, notice: <%= "'#{human_name} was successfully updated.'" %> }
+        format.html { redirect_to <%= redirect_resource_name %>, notice: <%= "'#{I18n.t("custom_template.flash.updated")}'" %> }
         format.json { render :show }
       else
         format.html { render :edit }
@@ -54,7 +54,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   def destroy
     @<%= orm_instance.destroy %>
     respond_to do |format|
-      format.html { redirect_to <%= index_helper %>_url, notice: <%= "'#{human_name} was successfully destroyed.'" %> }
+      format.html { redirect_to <%= index_helper %>_url, notice: <%= "'#{I18n.t("custom_template.flash.deleted")}'" %> }
       format.json { head :no_content }
     end
   end

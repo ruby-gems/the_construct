@@ -1,0 +1,40 @@
+zh-CN:
+  custom_template:
+    dashboard: 控制面板
+    list: 列表
+    export: 导出数据
+    print: 打印
+    delete_confirm: 确定删除？
+    flash:
+      created: 创建成功
+      updated: 更新成功
+      deleted: 删除成功
+    actions:
+      title: 操作
+      new: 新建%{resource}
+      edit: 编辑%{resource}
+      show: 查看%{resource}
+
+    buttons:
+      submit: 提交
+      clear: 清除
+      back: 返回
+      new: 新建
+      edit: 编辑
+      delete: 删除
+      show: 查看
+      search: 搜索
+  pagy:
+    items_selector_js: '每页显示 %{items_input} 条'
+
+  # Custom formats
+  number:
+    format:
+      precision: 2
+  date:
+    formats:
+      default: '%Y-%m-%d'
+  time:
+    formats:
+      default: '%Y-%m-%d %H:%M'
+      time: '%H:%M:%S'

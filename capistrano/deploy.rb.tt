@@ -1,0 +1,37 @@
+# frozen_string_literal: true
+
+# config valid only for current version of Capistrano
+set :application, '<%= app_name %>'
+set :repo_url, '<%= git_repo_url %>'
+
+set :user, 'deployer'
+
+set :deploy_to, "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
+
+set :rbenv_type, :user
+set :rbenv_ruby, '2.7.0'
+
+set :ssh_options, forward_agent: true
+
+set :linked_files, %w[config/application.yml config/database.yml puma.rb]
+set :linked_dirs, %w[log tmp/pids tmp/cache tmp/sockets vendor/bundle storage]
+
+set :puma_init_active_record, true
+set :puma_preload_app, true
+
+set :keep_releases, 3
+
+namespace :deploy do
+  desc 'create_db'
+  task :create_db do
+    on roles(:app) do
+      within release_path do
+        execute :bundle, :exec, :"rails db:create RAILS_ENV=#{fetch(:stage)}"
+      end
+    end
+  end
+
+  before 'deploy:migrate', 'deploy:create_db'
+
+  after :finishing, 'deploy:cleanup'
+end

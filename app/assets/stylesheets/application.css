@@ -11,16 +11,26 @@
  * It is generally better to create a new file per style scope.
  *
  *= require bootstrap/scss/bootstrap
- *= require fontawesome/rails
+ *= require daterangepicker/daterangepicker
  *= require select2/dist/css/select2
  *= require izitoast/dist/css/iziToast
- *= require stisla/style
- *= require stisla/components
- *= require_tree .
+ *= require chocolat
+ *= require scroll
+ *= require upload
+ *= require stisla
+ *= require mobile
+ *= require printing
+ *= require loading
  *= stub mobile
  *= require_self
  */
-
+.col-form-label {
+  /* text-align: right; */
+}
+label.required:after {
+  content: ' *';
+  color: #fd7e14;
+}
 .turbolinks-progress-bar {
   background-color: #fd7e14;
 }
@@ -33,7 +43,8 @@
   line-height: 15px;
 }
 
-.table thead th, .table td {
+.table thead th,
+.table td {
   white-space: nowrap;
   vertical-align: middle;
 }
@@ -60,11 +71,11 @@ a[data-target='infinite-page.more'] {
 
 /** HIDE-SPINNERS-BEGIN **/
 input[type='number'] {
-    -moz-appearance:textfield;
+  -moz-appearance: textfield;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+  -webkit-appearance: none;
 }
 /** HIDE-SPINNERS-END **/
